@@ -81,16 +81,25 @@ def generate_key_task(username, password, exe_path, output_dir):
 def fetch_chinese_url_task():
     if not requests or not BeautifulSoup:
         raise ImportError("缺少 requests 或 beautifulsoup4")
-    resp = requests.get('https://www.win-rar.com/download.html', headers={'User-Agent': 'Mozilla/5.0'}, timeout=10)
+    resp = requests.get('https://www.rarlab.com/', headers={'User-Agent': 'Mozilla/5.0'}, timeout=10)
     resp.raise_for_status()
-    soup = BeautifulSoup(resp.content, 'html.parser')
-    for h2 in soup.find_all('h2'):
-        if 'Chinese Simplified' in h2.get_text():
-            a = h2.find('a')
-            if a and a.get('href'):
-                href = a['href']
-                full_url = 'https://www.win-rar.com' + href if href.startswith('/') else href
-                return full_url, h2.get_text(strip=True)
+    resp.encoding = 'utf-8'
+    soup = BeautifulSoup(resp.text, 'html.parser')
+    
+    # 查找所有 li 标签
+    for li in soup.find_all('li'):
+        b_tag = li.find('b')
+        if b_tag and 'WinRAR and RAR' in b_tag.get_text():
+            # 在对应的 p 标签中查找 Chinese Simplified 链接
+            p_tag = li.find('p', class_='utshift')
+            if p_tag:
+                for a in p_tag.find_all('a'):
+                    if 'Chinese Simplified' in a.get_text():
+                        href = a.get('href')
+                        if href:
+                            full_url = 'https://www.rarlab.com' + href if href.startswith('/') else href
+                            return full_url, 'WinRAR 中文版 (Chinese Simplified)'
+    
     raise RuntimeError("未找到包含 'Chinese Simplified' 的下载项")
 
 
