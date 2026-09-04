@@ -9,4 +9,4 @@ Please open keygen.exe instead of winrar-keygen-x64.exe
 ## Preview
 <img width="502" height="412" alt="image" src="https://github.com/user-attachments/assets/473d177e-640b-45c4-b8df-bef716dba1a3" />
 
-注意！www.win-rar.com已将简体中文塞入广告，建议前往https://www.rarlab.com/ 进行下载，有能力的强烈呼吁购买并支持官方正版！
+注意！www.win-rar.com 已将简体中文塞入广告，建议前往https://www.rarlab.com/ 进行下载，有能力的强烈呼吁购买并支持官方正版！
